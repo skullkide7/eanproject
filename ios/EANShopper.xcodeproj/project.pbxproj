@@ -1,0 +1,592 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		012732FB3FF66CFE3B64FF85 /* MWDATMockDeviceTestClient in Frameworks */ = {isa = PBXBuildFile; productRef = 2F01BB3E572684713E3F3403 /* MWDATMockDeviceTestClient */; };
+		0A001353EB91D23C4FD12F97 /* ResultCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479AD87BA26B67D05A5D58C4 /* ResultCardView.swift */; };
+		1871AF5724FA893C4F6EF032 /* PriceLookupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6353E0D8BADDF4117625E522 /* PriceLookupTests.swift */; };
+		195A50BDB1286E8860445101 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5E7168F4E7A68E455D4362 /* L10n.swift */; };
+		2ED832FB43E7B6669F918201 /* GlassesInputsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E050C03FC4F9C809AAE9178B /* GlassesInputsTests.swift */; };
+		38A3C84AB621DC895BC57D24 /* ShopFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83527C1947B61D0A39B5436B /* ShopFormat.swift */; };
+		3BBDB76DD33A7572F3A9153F /* MWDATDisplay in Frameworks */ = {isa = PBXBuildFile; productRef = 4302DE3AA4995435BD77C0DB /* MWDATDisplay */; };
+		4DAC55AB5BB9A13434F375B7 /* NameSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79E925886A45B1C397C08E2 /* NameSearch.swift */; };
+		4E2E138085982BFCD1D90ADE /* Phrasebook.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2165EFE9C0B6BFAD8AF41B /* Phrasebook.swift */; };
+		55BE048DC2FE43E6651B6D85 /* MWDATCamera in Frameworks */ = {isa = PBXBuildFile; productRef = F5102BB7201247F07D7EAF49 /* MWDATCamera */; };
+		7100C3276AE4D02AE18F2C38 /* BarcodeDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8444A807ABBE388A1E6F1A /* BarcodeDetector.swift */; };
+		7267D4D430EB665D0C88F2ED /* MWDATCore in Frameworks */ = {isa = PBXBuildFile; productRef = DB9094E4C3F913A9E59188A5 /* MWDATCore */; };
+		75AA02A5AE08F7CF4181DFBB /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC06C8CCF9DECD7E9792AB6D /* App.swift */; };
+		85FF6C91D74AC4214A6136AD /* L10nTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16ED72B59ED57DBE69CE6E2 /* L10nTests.swift */; };
+		8D7061532FD701261198B10B /* VoiceQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BD22F9D498C56C6E3EBF6D /* VoiceQuery.swift */; };
+		A17366DDCACE37405ABCBCA5 /* MWDATInputs in Frameworks */ = {isa = PBXBuildFile; productRef = 203CFC79EA2831C093B0B281 /* MWDATInputs */; };
+		A1D3850DFCD569FD91F31543 /* Speaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBED6125EFD4A5E64FF12DBA /* Speaker.swift */; };
+		B04E0629E26D3F274DCF5A3D /* CameraPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4407481A623BD4756D9A3A12 /* CameraPreview.swift */; };
+		BC119472B89C97050E707199 /* PriceStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4963D589CBA71BC49A95C0DF /* PriceStore.swift */; };
+		C185BD35252E50EA7A26C836 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677588B1C142EDC528996FC0 /* Models.swift */; };
+		CCB2181B56F824E641C285F4 /* test_video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 5302A8FB07CFD061D08FA727 /* test_video.mp4 */; };
+		DBF72EB97C83623904467428 /* MWDATMockDevice in Frameworks */ = {isa = PBXBuildFile; productRef = 578492118312DD95770A428A /* MWDATMockDevice */; };
+		E965FB67219338DE488A4135 /* GlassesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074D51EB361AD397A511EAA5 /* GlassesManager.swift */; };
+		EB23EB712541A301514204EC /* PriceLookup.swift in Sources */ = {isa = PBXBuildFile; fileRef = A768F8E4E9B421DD04E3066C /* PriceLookup.swift */; };
+		EE719B6BAF1E8DBCCFB75F66 /* PhoneScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6980388C765E7F87FC6B3ADE /* PhoneScanner.swift */; };
+		EFB890E199114EA8A2E94AFB /* MockGlassesHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9492EAC9BA0DFC3E96E4F532 /* MockGlassesHelper.swift */; };
+		F56F1517F99110417B2CC9AF /* GlassesSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1C5907BAEA605977F85CEFB /* GlassesSession.swift */; };
+		F688ACC9D609845C264512B2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C07B0157A76CA4EB85CFB83 /* ContentView.swift */; };
+		F7DCC6C1E3D129BA06CE8E30 /* MWDATSpeech in Frameworks */ = {isa = PBXBuildFile; productRef = D7270F855493E461411E15D0 /* MWDATSpeech */; };
+		F9DA656EC9B27C568BCD1F52 /* NameSearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B4246F051E41E0711098DD /* NameSearchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DFB603D6432D8F9066935F88 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 97ABF8793E404CAC10BDC14D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DCEBF9A2891234469E07FEAB;
+			remoteInfo = EANShopper;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		074D51EB361AD397A511EAA5 /* GlassesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassesManager.swift; sourceTree = "<group>"; };
+		19B4246F051E41E0711098DD /* NameSearchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameSearchTests.swift; sourceTree = "<group>"; };
+		1C07B0157A76CA4EB85CFB83 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		4407481A623BD4756D9A3A12 /* CameraPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreview.swift; sourceTree = "<group>"; };
+		479AD87BA26B67D05A5D58C4 /* ResultCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultCardView.swift; sourceTree = "<group>"; };
+		4963D589CBA71BC49A95C0DF /* PriceStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceStore.swift; sourceTree = "<group>"; };
+		5302A8FB07CFD061D08FA727 /* test_video.mp4 */ = {isa = PBXFileReference; path = test_video.mp4; sourceTree = "<group>"; };
+		5D8444A807ABBE388A1E6F1A /* BarcodeDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeDetector.swift; sourceTree = "<group>"; };
+		6353E0D8BADDF4117625E522 /* PriceLookupTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceLookupTests.swift; sourceTree = "<group>"; };
+		677588B1C142EDC528996FC0 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		6980388C765E7F87FC6B3ADE /* PhoneScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneScanner.swift; sourceTree = "<group>"; };
+		83527C1947B61D0A39B5436B /* ShopFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopFormat.swift; sourceTree = "<group>"; };
+		9492EAC9BA0DFC3E96E4F532 /* MockGlassesHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGlassesHelper.swift; sourceTree = "<group>"; };
+		9C3B45C365802998FEFB7672 /* EANShopper.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = EANShopper.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A768F8E4E9B421DD04E3066C /* PriceLookup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceLookup.swift; sourceTree = "<group>"; };
+		AA033A96475DAB3B98C64C5E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		AD7D35FE270092639C86111B /* EANShopperTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = EANShopperTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B79E925886A45B1C397C08E2 /* NameSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameSearch.swift; sourceTree = "<group>"; };
+		B7BD22F9D498C56C6E3EBF6D /* VoiceQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceQuery.swift; sourceTree = "<group>"; };
+		C16ED72B59ED57DBE69CE6E2 /* L10nTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L10nTests.swift; sourceTree = "<group>"; };
+		CBED6125EFD4A5E64FF12DBA /* Speaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Speaker.swift; sourceTree = "<group>"; };
+		D1C5907BAEA605977F85CEFB /* GlassesSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassesSession.swift; sourceTree = "<group>"; };
+		E050C03FC4F9C809AAE9178B /* GlassesInputsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassesInputsTests.swift; sourceTree = "<group>"; };
+		EC06C8CCF9DECD7E9792AB6D /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
+		EE5E7168F4E7A68E455D4362 /* L10n.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L10n.swift; sourceTree = "<group>"; };
+		FF2165EFE9C0B6BFAD8AF41B /* Phrasebook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phrasebook.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AE2972CEDFB226341F002A6C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7267D4D430EB665D0C88F2ED /* MWDATCore in Frameworks */,
+				55BE048DC2FE43E6651B6D85 /* MWDATCamera in Frameworks */,
+				3BBDB76DD33A7572F3A9153F /* MWDATDisplay in Frameworks */,
+				F7DCC6C1E3D129BA06CE8E30 /* MWDATSpeech in Frameworks */,
+				A17366DDCACE37405ABCBCA5 /* MWDATInputs in Frameworks */,
+				DBF72EB97C83623904467428 /* MWDATMockDevice in Frameworks */,
+				012732FB3FF66CFE3B64FF85 /* MWDATMockDeviceTestClient in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		237DEAE12E4BB21BDF6CCB55 = {
+			isa = PBXGroup;
+			children = (
+				44C5FBA4C090CAA3D05D7ECF /* Sources */,
+				967B65CB4A3D5397775C6CC9 /* Tests */,
+				CF80D4072ECCBD29943A5276 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		44C5FBA4C090CAA3D05D7ECF /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				EC06C8CCF9DECD7E9792AB6D /* App.swift */,
+				5D8444A807ABBE388A1E6F1A /* BarcodeDetector.swift */,
+				4407481A623BD4756D9A3A12 /* CameraPreview.swift */,
+				1C07B0157A76CA4EB85CFB83 /* ContentView.swift */,
+				074D51EB361AD397A511EAA5 /* GlassesManager.swift */,
+				D1C5907BAEA605977F85CEFB /* GlassesSession.swift */,
+				AA033A96475DAB3B98C64C5E /* Info.plist */,
+				EE5E7168F4E7A68E455D4362 /* L10n.swift */,
+				9492EAC9BA0DFC3E96E4F532 /* MockGlassesHelper.swift */,
+				677588B1C142EDC528996FC0 /* Models.swift */,
+				B79E925886A45B1C397C08E2 /* NameSearch.swift */,
+				6980388C765E7F87FC6B3ADE /* PhoneScanner.swift */,
+				FF2165EFE9C0B6BFAD8AF41B /* Phrasebook.swift */,
+				A768F8E4E9B421DD04E3066C /* PriceLookup.swift */,
+				4963D589CBA71BC49A95C0DF /* PriceStore.swift */,
+				479AD87BA26B67D05A5D58C4 /* ResultCardView.swift */,
+				83527C1947B61D0A39B5436B /* ShopFormat.swift */,
+				CBED6125EFD4A5E64FF12DBA /* Speaker.swift */,
+				5302A8FB07CFD061D08FA727 /* test_video.mp4 */,
+				B7BD22F9D498C56C6E3EBF6D /* VoiceQuery.swift */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		967B65CB4A3D5397775C6CC9 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				E050C03FC4F9C809AAE9178B /* GlassesInputsTests.swift */,
+				C16ED72B59ED57DBE69CE6E2 /* L10nTests.swift */,
+				19B4246F051E41E0711098DD /* NameSearchTests.swift */,
+				6353E0D8BADDF4117625E522 /* PriceLookupTests.swift */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		CF80D4072ECCBD29943A5276 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9C3B45C365802998FEFB7672 /* EANShopper.app */,
+				AD7D35FE270092639C86111B /* EANShopperTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		68BE17D0FD0631CE16F3B2D0 /* EANShopperTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 003ECDBA51B6B3897A0C6953 /* Build configuration list for PBXNativeTarget "EANShopperTests" */;
+			buildPhases = (
+				83676754D60792701C76168A /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2287E2478D805B9F44B36BCD /* PBXTargetDependency */,
+			);
+			name = EANShopperTests;
+			packageProductDependencies = (
+			);
+			productName = EANShopperTests;
+			productReference = AD7D35FE270092639C86111B /* EANShopperTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		DCEBF9A2891234469E07FEAB /* EANShopper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1FE6D6355EA029880C7E9DDB /* Build configuration list for PBXNativeTarget "EANShopper" */;
+			buildPhases = (
+				27B1227483E83E1F778C7405 /* Sources */,
+				FC9A0917176C230BB3754449 /* Resources */,
+				AE2972CEDFB226341F002A6C /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = EANShopper;
+			packageProductDependencies = (
+				DB9094E4C3F913A9E59188A5 /* MWDATCore */,
+				F5102BB7201247F07D7EAF49 /* MWDATCamera */,
+				4302DE3AA4995435BD77C0DB /* MWDATDisplay */,
+				D7270F855493E461411E15D0 /* MWDATSpeech */,
+				203CFC79EA2831C093B0B281 /* MWDATInputs */,
+				578492118312DD95770A428A /* MWDATMockDevice */,
+				2F01BB3E572684713E3F3403 /* MWDATMockDeviceTestClient */,
+			);
+			productName = EANShopper;
+			productReference = 9C3B45C365802998FEFB7672 /* EANShopper.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		97ABF8793E404CAC10BDC14D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					68BE17D0FD0631CE16F3B2D0 = {
+						DevelopmentTeam = 79M5GKGV2P;
+					};
+					DCEBF9A2891234469E07FEAB = {
+						DevelopmentTeam = 79M5GKGV2P;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = C759D38B93BF57561A106C50 /* Build configuration list for PBXProject "EANShopper" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 237DEAE12E4BB21BDF6CCB55;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				26031647861D962AAC50D96B /* XCRemoteSwiftPackageReference "meta-wearables-dat-ios" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = CF80D4072ECCBD29943A5276 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DCEBF9A2891234469E07FEAB /* EANShopper */,
+				68BE17D0FD0631CE16F3B2D0 /* EANShopperTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FC9A0917176C230BB3754449 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CCB2181B56F824E641C285F4 /* test_video.mp4 in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		27B1227483E83E1F778C7405 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				75AA02A5AE08F7CF4181DFBB /* App.swift in Sources */,
+				7100C3276AE4D02AE18F2C38 /* BarcodeDetector.swift in Sources */,
+				B04E0629E26D3F274DCF5A3D /* CameraPreview.swift in Sources */,
+				F688ACC9D609845C264512B2 /* ContentView.swift in Sources */,
+				E965FB67219338DE488A4135 /* GlassesManager.swift in Sources */,
+				F56F1517F99110417B2CC9AF /* GlassesSession.swift in Sources */,
+				195A50BDB1286E8860445101 /* L10n.swift in Sources */,
+				EFB890E199114EA8A2E94AFB /* MockGlassesHelper.swift in Sources */,
+				C185BD35252E50EA7A26C836 /* Models.swift in Sources */,
+				4DAC55AB5BB9A13434F375B7 /* NameSearch.swift in Sources */,
+				EE719B6BAF1E8DBCCFB75F66 /* PhoneScanner.swift in Sources */,
+				4E2E138085982BFCD1D90ADE /* Phrasebook.swift in Sources */,
+				EB23EB712541A301514204EC /* PriceLookup.swift in Sources */,
+				BC119472B89C97050E707199 /* PriceStore.swift in Sources */,
+				0A001353EB91D23C4FD12F97 /* ResultCardView.swift in Sources */,
+				38A3C84AB621DC895BC57D24 /* ShopFormat.swift in Sources */,
+				A1D3850DFCD569FD91F31543 /* Speaker.swift in Sources */,
+				8D7061532FD701261198B10B /* VoiceQuery.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		83676754D60792701C76168A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2ED832FB43E7B6669F918201 /* GlassesInputsTests.swift in Sources */,
+				85FF6C91D74AC4214A6136AD /* L10nTests.swift in Sources */,
+				F9DA656EC9B27C568BCD1F52 /* NameSearchTests.swift in Sources */,
+				1871AF5724FA893C4F6EF032 /* PriceLookupTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2287E2478D805B9F44B36BCD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DCEBF9A2891234469E07FEAB /* EANShopper */;
+			targetProxy = DFB603D6432D8F9066935F88 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0917E69E4E3277D3D061C144 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				INFOPLIST_FILE = Sources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = "-weak_framework MWDATCore -weak_framework MWDATCamera -weak_framework MWDATDisplay -weak_framework MWDATSpeech -weak_framework MWDATInputs -weak_framework MWDATMockDevice -weak_framework MWDATMockDeviceTestClient";
+				PRODUCT_BUNDLE_IDENTIFIER = com.eanshopper.app;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		22B2DF5FD22F60DC14F68471 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 79M5GKGV2P;
+				DEVELOPMENT_TEAM_NAME = "Eduardo Castro Hermosilla";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		406E547EBCAB06DA51E2E1E4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				INFOPLIST_FILE = Sources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = "-weak_framework MWDATCore -weak_framework MWDATCamera -weak_framework MWDATDisplay -weak_framework MWDATSpeech -weak_framework MWDATInputs -weak_framework MWDATMockDevice -weak_framework MWDATMockDeviceTestClient";
+				PRODUCT_BUNDLE_IDENTIFIER = com.eanshopper.app;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		6A3EDCA3995E9CAF68F55272 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.eanshopper.EANShopperTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EANShopper.app/EANShopper";
+			};
+			name = Debug;
+		};
+		A8AB11DEEC3E63E8D6942A3B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 79M5GKGV2P;
+				DEVELOPMENT_TEAM_NAME = "Eduardo Castro Hermosilla";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		C91AD5B4A01F9D6A49268F28 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.eanshopper.EANShopperTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EANShopper.app/EANShopper";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		003ECDBA51B6B3897A0C6953 /* Build configuration list for PBXNativeTarget "EANShopperTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6A3EDCA3995E9CAF68F55272 /* Debug */,
+				C91AD5B4A01F9D6A49268F28 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		1FE6D6355EA029880C7E9DDB /* Build configuration list for PBXNativeTarget "EANShopper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0917E69E4E3277D3D061C144 /* Debug */,
+				406E547EBCAB06DA51E2E1E4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		C759D38B93BF57561A106C50 /* Build configuration list for PBXProject "EANShopper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A8AB11DEEC3E63E8D6942A3B /* Debug */,
+				22B2DF5FD22F60DC14F68471 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		26031647861D962AAC50D96B /* XCRemoteSwiftPackageReference "meta-wearables-dat-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/facebook/meta-wearables-dat-ios";
+			requirement = {
+				kind = exactVersion;
+				version = 1.0.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		203CFC79EA2831C093B0B281 /* MWDATInputs */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 26031647861D962AAC50D96B /* XCRemoteSwiftPackageReference "meta-wearables-dat-ios" */;
+			productName = MWDATInputs;
+		};
+		2F01BB3E572684713E3F3403 /* MWDATMockDeviceTestClient */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 26031647861D962AAC50D96B /* XCRemoteSwiftPackageReference "meta-wearables-dat-ios" */;
+			productName = MWDATMockDeviceTestClient;
+		};
+		4302DE3AA4995435BD77C0DB /* MWDATDisplay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 26031647861D962AAC50D96B /* XCRemoteSwiftPackageReference "meta-wearables-dat-ios" */;
+			productName = MWDATDisplay;
+		};
+		578492118312DD95770A428A /* MWDATMockDevice */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 26031647861D962AAC50D96B /* XCRemoteSwiftPackageReference "meta-wearables-dat-ios" */;
+			productName = MWDATMockDevice;
+		};
+		D7270F855493E461411E15D0 /* MWDATSpeech */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 26031647861D962AAC50D96B /* XCRemoteSwiftPackageReference "meta-wearables-dat-ios" */;
+			productName = MWDATSpeech;
+		};
+		DB9094E4C3F913A9E59188A5 /* MWDATCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 26031647861D962AAC50D96B /* XCRemoteSwiftPackageReference "meta-wearables-dat-ios" */;
+			productName = MWDATCore;
+		};
+		F5102BB7201247F07D7EAF49 /* MWDATCamera */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 26031647861D962AAC50D96B /* XCRemoteSwiftPackageReference "meta-wearables-dat-ios" */;
+			productName = MWDATCamera;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 97ABF8793E404CAC10BDC14D /* Project object */;
+}

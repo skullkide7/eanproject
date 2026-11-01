@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDisplayName</key>
+	<string>EAN Shopper</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleName</key>
+	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundleVersion</key>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(MARKETING_VERSION)</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>La app usa Bluetooth para conectarse a los lentes Meta Ray-Ban Display.</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>La app usa Bluetooth para comunicarse con los lentes Meta Ray-Ban Display.</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>processing</string>
+		<string>bluetooth-central</string>
+		<string>audio</string>
+		<string>bluetooth-peripheral</string>
+	</array>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_bonjour._tcp</string>
+	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>La app usa la cámara para leer códigos de barras de productos.</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>La app usa la red local para descubrir los lentes.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>La app usa tu ubicación para mostrar el precio de la tienda más cercana.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>La app usa el micrófono para las funciones de voz y audio de la sesión con los lentes Meta.</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Voice search turns what you say into a product query. / La búsqueda por voz convierte lo que dices en una consulta de producto.</string>
+	<key>MWDAT</key>
+	<dict>
+		<key>AppLinkURLScheme</key>
+		<string>eanshopper://</string>
+		<key>MetaAppID</key>
+		<string>3302324649969923</string>
+		<key>ClientToken</key>
+		<string>AR|3302324649969923|b0d49299d38fcd0c4562599643c410a8</string>
+		<key>TeamID</key>
+		<string>79M5GKGV2P</string>
+	</dict>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.eanshopper.app.dat-callback</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>eanshopper</string>
+			</array>
+		</dict>
+	</array>
+	<key>UILaunchScreen</key>
+	<dict/>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>armv7</string>
+	</array>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+</dict>
+</plist>

@@ -1,0 +1,73 @@
+name: EANShopper
+options:
+  bundleIdPrefix: com.eanshopper
+  deploymentTarget:
+    iOS: "18.0"
+  xcodeVersion: "16.0"
+settings:
+  base:
+    DEVELOPMENT_TEAM: 79M5GKGV2P
+    DEVELOPMENT_TEAM_NAME: Eduardo Castro Hermosilla
+    ENABLE_USER_SCRIPT_SANDBOXING: YES
+    STRING_CATALOG_GENERATE_SYMBOLS: YES
+    ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS: YES
+packages:
+  MetaWearablesDAT:
+    url: https://github.com/facebook/meta-wearables-dat-ios
+    version: 1.0.1
+targets:
+  EANShopper:
+    type: application
+    platform: iOS
+    sources:
+      - path: Sources
+    dependencies:
+      - package: MetaWearablesDAT
+        product: MWDATCore
+      - package: MetaWearablesDAT
+        product: MWDATCamera
+      - package: MetaWearablesDAT
+        product: MWDATDisplay
+      - package: MetaWearablesDAT
+        product: MWDATSpeech
+      - package: MetaWearablesDAT
+        product: MWDATInputs
+      - package: MetaWearablesDAT
+        product: MWDATMockDevice
+      - package: MetaWearablesDAT
+        product: MWDATMockDeviceTestClient
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.eanshopper.app
+        CODE_SIGN_STYLE: Automatic
+        MARKETING_VERSION: "1.0"
+        CURRENT_PROJECT_VERSION: "1"
+        OTHER_LDFLAGS: "-weak_framework MWDATCore -weak_framework MWDATCamera -weak_framework MWDATDisplay -weak_framework MWDATSpeech -weak_framework MWDATInputs -weak_framework MWDATMockDevice -weak_framework MWDATMockDeviceTestClient"
+        INFOPLIST_FILE: Sources/Info.plist
+        SWIFT_VERSION: "5.0"
+        IPHONEOS_DEPLOYMENT_TARGET: "18.0"
+        TARGETED_DEVICE_FAMILY: "1"
+      configs:
+        Debug:
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEBUG
+  EANShopperTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: Tests
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+    dependencies:
+      - target: EANShopper
+schemes:
+  EANShopper:
+    build:
+      targets:
+        EANShopper: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - name: EANShopperTests
