@@ -59,16 +59,16 @@ final class Speaker: NSObject, AVSpeechSynthesizerDelegate {
         voice(for: code)?.quality == .default
     }
 
-    /// Lee cada coincidencia real con el formato de búsqueda por
-    /// nombre, en una sola locución (respeta mute y stop como el resto).
+    /// Lee la primera coincidencia real completa y para: toda la
+    /// tarjeta (nombre + precio + tienda + distancia) sin cortes a la
+    /// mitad. Nada la interrumpe salvo una búsqueda o salida explícita
+    /// (la retención de 8 s que la cortaba ya no existe).
     func speakNameResults(_ results: [ScanResult]) {
-        guard !isMuted, !results.isEmpty else { return }
+        guard !isMuted, let first = results.first else { return }
         if synthesizer.isSpeaking { synthesizer.stopSpeaking(at: .immediate) }
         let code = Phrasebook.languageCode()
-        let text = results
-            .map { Phrasebook.namePhrase(for: $0, languageCode: code) }
-            .joined(separator: " ")
-        let utterance = AVSpeechUtterance(string: text)
+        let utterance = AVSpeechUtterance(string:
+            Phrasebook.namePhrase(for: first, languageCode: code))
         utterance.voice = Self.voice(for: code)
         synthesizer.speak(utterance)
     }

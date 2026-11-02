@@ -93,6 +93,9 @@ final class GlassesSession {
             return
         }
         guard deviceSession == nil else { return }
+        // Error fresco por intento: sin esto, un mensaje viejo
+        // (p. ej. registro pendiente) enmascara el resultado actual.
+        lastError = nil
         // Como el sample oficial: registro en Meta AI antes de crear
         // sesión. Sin esto, el dispositivo nunca es "elegible".
         guard await ensureRegistered(timeout: 60) else {
@@ -166,21 +169,59 @@ final class GlassesSession {
         try session.start()
     }
 
+    /// Espera una llamada del SDK con tope y cancelación: si se cuelga
+    /// (p. ej. registro sin dispositivo), no pega la conexión. El worker
+    /// colgado se abandona — un await ajeno no se puede matar.
+    private func withSDKTimeout<T: Sendable>(
+        seconds: TimeInterval,
+        operation: @escaping @Sendable () async -> T?
+    ) async -> (finished: Bool, result: T?) {
+        let box = TimeoutBox<T>()
+        let worker = Task.detached {
+            await box.finish(with: await operation())
+        }
+        let deadline = Date().addingTimeInterval(seconds)
+        while Date() < deadline {
+            if Task.isCancelled { break }
+            if await box.isDone { break }
+            try? await Task.sleep(for: .milliseconds(200))
+        }
+        let done = await box.isDone
+        if !done { worker.cancel() }
+        return (done, await box.value)
+    }
+
     /// Registro en Meta AI (puede abrir la app de Meta AI; al volver,
     /// el callback eanshopper:// completa el flujo vía handleUrl).
+    /// Un tap nuevo cancela la espera anterior (no más 60 s invisibles).
     private func ensureRegistered(timeout: TimeInterval) async -> Bool {
+        NSLog("[EANShopper] registro estado inicial: \(String(describing: wearables.registrationState))")
         if wearables.registrationState == .registered { return true }
-        do {
-            try await wearables.startRegistration()
-        } catch {
-            lastError = String(describing: error)
+        let w = wearables
+        let start = await withSDKTimeout(seconds: 20) { () -> String? in
+            do {
+                try await w.startRegistration()
+                return nil
+            } catch {
+                return String(describing: error)
+            }
+        }
+        guard start.finished else {
+            lastError = "Registro sin respuesta (¿sin dispositivo?)."
+            return false
+        }
+        if let failure = start.result {
+            lastError = failure
             return false
         }
         let deadline = Date().addingTimeInterval(timeout)
         while wearables.registrationState != .registered, Date() < deadline {
+            if Task.isCancelled { return false }
             try? await Task.sleep(for: .milliseconds(200))
         }
-        return wearables.registrationState == .registered
+        let ok = wearables.registrationState == .registered
+        NSLog("[EANShopper] registro estado final: \(String(describing: wearables.registrationState))")
+        return ok
     }
 
     /// Espera a que el selector vea un dispositivo elegible (hasta
@@ -190,6 +231,7 @@ final class GlassesSession {
     private func waitForDevice(timeout: TimeInterval) async -> Bool {
         let deadline = Date().addingTimeInterval(timeout)
         while deviceSelector.activeDevice == nil, Date() < deadline {
+            if Task.isCancelled { return false }
             try? await Task.sleep(for: .milliseconds(100))
         }
         return deviceSelector.activeDevice != nil
@@ -205,20 +247,45 @@ final class GlassesSession {
         loggedFrameInfo = false
         loggedRawFrame = false
         loggedUnextractable = false
-        camera?.stop()
-        camera = nil
-        display = nil
         setDisplayReady(false)
+        // El teardown con el dispositivo corre en fondo: una llamada del
+        // SDK que se cuelgue (p. ej. remover capabilities, detener la
+        // sesión) no debe pegar el hilo principal ni la salida a cámara.
+        // Se sueltan las referencias ya para no reusar sesión vieja.
+        let camera = self.camera
+        let session = self.deviceSession
         #if canImport(MWDATInputs)
-        teardownInputs()
+        inputsTask?.cancel()
+        inputsTask = nil
+        let removeInputs = self.inputsAttached
+        self.inputs = nil
+        self.inputsAttached = false
         #endif
         #if canImport(MWDATSpeech)
-        teardownSpeech()
+        let removeSpeech = self.speechAttached
+        self.speech = nil
+        self.speechAttached = false
+        self.speechWasStarted = false
         #endif
-        deviceSession?.stop()
-        deviceSession = nil
-        Task { @MainActor [weak self] in
-            self?.onConnectionChange?(false)
+        self.camera = nil
+        self.display = nil
+        self.deviceSession = nil
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            camera?.stop()
+            #if canImport(MWDATInputs)
+            if removeInputs, let session {
+                try? session.removeInputs()
+            }
+            #endif
+            #if canImport(MWDATSpeech)
+            if removeSpeech, let session {
+                try? session.removeSpeech()
+            }
+            #endif
+            session?.stop()
+            Task { @MainActor [weak self] in
+                self?.onConnectionChange?(false)
+            }
         }
     }
 
@@ -385,6 +452,7 @@ final class GlassesSession {
                 return
             }
             inputs = capability
+            inputsAttached = true
             capability.statePublisher.listen { state in
                 NSLog("[EANShopper] inputs state=\(String(describing: state))")
             }.store(in: tokenBag)
@@ -407,6 +475,7 @@ final class GlassesSession {
 
     private var inputsTask: Task<Void, Never>?
     private var inputs: Inputs?
+    private var inputsAttached = false
     /// Anti-rebote: una pulsación = un evento, pero dos gestos juntos
     /// (botón + touchpad) no deben lanzar dos búsquedas.
     private var lastVoiceTriggerAt = Date.distantPast
@@ -441,15 +510,6 @@ final class GlassesSession {
         Task { @MainActor in callback?() }
     }
 
-    /// Limpieza de Inputs al desconectar.
-    private func teardownInputs() {
-        inputsTask?.cancel()
-        inputsTask = nil
-        inputs = nil
-        if let session = deviceSession {
-            try? session.removeInputs()
-        }
-    }
     #endif
     #if !canImport(MWDATInputs)
     func startInputs() {}
@@ -486,6 +546,7 @@ final class GlassesSession {
                     return false
                 }
                 speech = capability
+                speechAttached = true
                 capability.statePublisher.listen { [weak self] state in
                     NSLog("[EANShopper] speech state=\(String(describing: state))")
                     if state == .started {
@@ -519,18 +580,11 @@ final class GlassesSession {
     }
 
     private var speech: Speech?
+    private var speechAttached = false
 
     /// Deja de escuchar (segunda pulsación): no borra la capability.
     func stopListening() {
         speech?.stop()
-    }
-
-    private func teardownSpeech() {
-        speech?.stop()
-        speech = nil
-        if let session = deviceSession {
-            try? session.removeSpeech()
-        }
     }
     #endif
     #if !canImport(MWDATSpeech)
@@ -652,7 +706,6 @@ final class GlassesSession {
 }
 
 #else
-
 /// Sin DAT SDK (o sin credenciales): sesión nula, la app usa el iPhone.
 final class GlassesSession {
     var onFrame: ((String) -> Void)?
@@ -673,6 +726,19 @@ final class GlassesSession {
 }
 
 #endif
+
+/// Caja con tope para una llamada del SDK que puede colgarse.
+/// Pura y testeable.
+private actor TimeoutBox<T: Sendable> {
+    private var done = false
+    private var stored: T?
+    var isDone: Bool { done }
+    var value: T? { stored }
+    func finish(with result: T?) {
+        stored = result
+        done = true
+    }
+}
 
 /// Acumulador del dictado: los parciales reemplazan (docs oficiales),
 /// solo el final se entrega para buscar. Puro y testeable.

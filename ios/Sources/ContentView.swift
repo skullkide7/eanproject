@@ -210,6 +210,8 @@ struct ContentView: View {
     private var menuButton: some View {
         Button {
             withAnimation(.spring(duration: 0.25)) { showMenu.toggle() }
+            // Abrir opciones también descarta las tarjetas por nombre.
+            glasses.dismissNameResults()
         } label: {
             Image(systemName: "line.3.horizontal")
                 .font(.title3.bold())
@@ -262,13 +264,32 @@ struct ContentView: View {
                             glasses.disconnectGlasses()
                         }
                     } else {
+                        if glasses.isConnecting {
+                            HStack(spacing: 8) {
+                                ProgressView()
+                                    .tint(.green)
+                                Text(L10n.t("connecting"))
+                                    .foregroundStyle(.secondary)
+                                Spacer()
+                                Button(L10n.t("cancel")) {
+                                    glasses.cancelConnection()
+                                }
+                                .buttonStyle(GlassPressStyle())
+                                .sensoryFeedback(.selection, trigger: glasses.isConnecting)
+                                .foregroundStyle(.red)
+                            }
+                            .padding(.horizontal, 14)
+                            .padding(.vertical, 10)
+                        }
                         menuAction(L10n.t("connect")) {
                             glasses.connectGlasses()
                         }
+                        .disabled(glasses.isConnecting)
                         #if DEBUG
                         menuAction(L10n.t("simulate")) {
                             glasses.simulateGlasses()
                         }
+                        .disabled(glasses.isConnecting)
                         menuAction(L10n.t("testDisplay")) {
                             glasses.testDisplay()
                         }
@@ -324,6 +345,8 @@ struct ContentView: View {
             // Con lentes puestos el precio va al display, no al teléfono.
             if !glasses.glassesConnected, !glasses.nameResults.isEmpty {
                 nameResultsCard(results: glasses.nameResults)
+                    // Tocar una tarjeta vuelve a la cámara sin precios.
+                    .onTapGesture { glasses.dismissNameResults() }
             } else if !glasses.glassesConnected, let result = glasses.lastResult {
                 HStack(alignment: .bottom, spacing: 10) {
                     hereCard(result: result)

@@ -42,9 +42,15 @@ final class GlassesManager: NSObject, ObservableObject {
     @Published var glassesError: String?
     @Published var isLookingUp = false
     /// Coincidencias reales de buscar por nombre, ordenadas por cercanía.
+    /// No se ocultan solas: solo al tocar una tarjeta o abrir el menú.
     @Published var nameResults: [ScanResult] = []
-    /// Retención en pantalla de resultados por nombre (8 s, como manual).
-    private var nameResultsUntil: Date?
+
+    /// Salida explícita de resultados por nombre: vuelve a la cámara sin
+    /// tarjetas y detiene la voz (acción directa de la persona, no corte).
+    func dismissNameResults() {
+        nameResults = []
+        speaker.stop()
+    }
     /// Tarjeta guía para descargar la voz mejorada (una sola vez).
     @Published var showVoiceUpgrade = false
     private let voiceUpgradeSeenKey = "voiceUpgradePromptSeen"
@@ -62,7 +68,7 @@ final class GlassesManager: NSObject, ObservableObject {
     private var didLogStartup = false
     /// Tag único por build para saber qué código corre el iPhone.
     /// Subirlo en cada cambio que deba verificarse en dispositivo.
-    private static let buildTag = "b93"
+    private static let buildTag = "b99"
 
     let scanner = PhoneScanner()
     let speaker = Speaker()
@@ -173,19 +179,28 @@ final class GlassesManager: NSObject, ObservableObject {
         }
     }
 
-    /// Evita conexiones superpuestas (doble tap): dos sesiones en
-    /// carrera emparejan dos mocks y la primera falla.
-    private var connecting = false
+    /// Conexión en curso (visible en el menú): un tap nuevo cancela la
+    /// espera anterior en vez de tragársela en silencio. Sin esto, cada
+    /// intento quema hasta 60 s sin feedback ("la app no hace nada").
+    @Published var isConnecting = false
+    private var connectTask: Task<Void, Never>?
+
+    /// Cancela una conexión en curso: sale del "Conectando…" pegado
+    /// cuando el SDK no responde (p. ej. registro sin dispositivo).
+    func cancelConnection() {
+        connectTask?.cancel()
+        isConnecting = false
+    }
 
     /// Conecta con los lentes (reales o simulados) e inicia sesión.
     /// El SDK se configura recién aquí, fuera del arranque de la app.
     func connectGlasses() {
-        guard !connecting else { return }
-        connecting = true
-        Task {
+        connectTask?.cancel()
+        connectTask = Task {
+            isConnecting = true
+            defer { isConnecting = false }
             await configureGlasses()
             await glassesSession.start()
-            connecting = false
         }
     }
 
@@ -193,25 +208,28 @@ final class GlassesManager: NSObject, ObservableObject {
     @Published var simActive = false
 
     func disconnectGlasses() {
-        if simActive {
-            simActive = false
-            MockGlassesHelper.disable()
-        }
-        // La UI y la cámara del iPhone retoman DE INMEDIATO: el teardown
-        // de la sesión corre después, y si se cuelga la pantalla no
-        // queda pegada en lentes (el false tardío es idempotente).
+        let wasSim = simActive
+        simActive = false
+        // La UI y la cámara del iPhone retoman DE INMEDIATO: el apagado
+        // del mock y el teardown de la sesión corren en fondo. Si el mock
+        // se cuelga apagándose (capacidades activas), la pantalla ya no
+        // queda pegada en simulación.
         glassesConnected = false
         cameraSource = .phone
         glassesError = nil
         scanner.start()
+        if wasSim {
+            DispatchQueue.global(qos: .userInitiated).async {
+                MockGlassesHelper.disable()
+            }
+        }
         glassesSession.stop()
     }
 
     /// Solo DEBUG: configura primero y empareja después (al revés, el
     /// configure() puede limpiar el mock recién emparejado).
     func simulateGlasses() {
-        guard !connecting else { return }
-        connecting = true
+        connectTask?.cancel()
         // Suelta la cámara del iPhone antes de que el mock la tome como
         // feed; dos sesiones activas sobre la misma cámara se pelean.
         scanner.stop()
@@ -219,13 +237,14 @@ final class GlassesManager: NSObject, ObservableObject {
         simActive = true
         MockGlassesHelper.liveFeedWanted = true
         #endif
-        Task {
+        connectTask = Task {
+            isConnecting = true
+            defer { isConnecting = false }
             await configureGlasses()
             #if DEBUG
             MockGlassesHelper.enableAndPair()
             #endif
             await glassesSession.start()
-            connecting = false
         }
     }
 
@@ -241,6 +260,7 @@ final class GlassesManager: NSObject, ObservableObject {
     /// para verificar lentes → texto → búsqueda sin hardware.
     func testSpeechTranscription() {
         #if DEBUG
+        forceGlassesPath = true
         nameSearchVoiceMode = true
         openNameSearch = true
         Task {
@@ -339,12 +359,18 @@ final class GlassesManager: NSObject, ObservableObject {
         Task { await startVoicePathIfNeeded() }
     }
 
+    /// Solo DEBUG: fuerza la ruta de lentes en simulación para probar
+    /// la transcripción inyectada (el mock no tiene micrófono real).
+    private var forceGlassesPath = false
+
     func startVoicePathIfNeeded() async {
         guard openNameSearch, nameSearchVoiceMode, voicePath == .none else { return }
         speechAccumulator = SpeechAccumulator()
         voiceTranscript = ""
         voicePathStartedAt = Date()
-        if glassesConnected {
+        // El mock simulado no tiene micrófono: en sim la voz entra por
+        // el teléfono (con lentes reales, por los lentes).
+        if glassesConnected, !simActive || forceGlassesPath {
             voicePath = .glasses
             let ok = await glassesSession.startListening()
             guard ok else {
@@ -356,6 +382,9 @@ final class GlassesManager: NSObject, ObservableObject {
             }
             voiceListening = true
         } else {
+            if simActive {
+                NSLog("[EANShopper] sim activa: voz por micrófono del iPhone")
+            }
             startPhoneVoice()
         }
     }
@@ -448,6 +477,7 @@ final class GlassesManager: NSObject, ObservableObject {
         glassesSession.stopListening()
         voicePath = .none
         voiceListening = false
+        forceGlassesPath = false
     }
 
     /// Guía de voz mejorada: solo si sonó la básica (hay de dónde
@@ -478,7 +508,6 @@ final class GlassesManager: NSObject, ObservableObject {
         guard !query.isEmpty else { return }
         lastResult = nil
         nameResults = []
-        nameResultsUntil = nil
         Task { await runNameSearch(query) }
     }
 
@@ -521,7 +550,6 @@ final class GlassesManager: NSObject, ObservableObject {
             return
         }
         nameResults = results
-        nameResultsUntil = Date().addingTimeInterval(8)
         scanState = .idle
         speaker.speakNameResults(results)
         maybePromptVoiceUpgrade()
@@ -609,7 +637,6 @@ final class GlassesManager: NSObject, ObservableObject {
         lastEAN = ean
         // La cámara toma el mando: oculta resultados por nombre.
         nameResults = []
-        nameResultsUntil = nil
         // Un avistamiento de cámara cancela la retención manual:
         // el flujo vuelve a limpieza de 1,5 s.
         manualHoldUntil = nil
@@ -630,16 +657,6 @@ final class GlassesManager: NSObject, ObservableObject {
                 try? await Task.sleep(for: .seconds(0.5))
                 await MainActor.run { [weak self] in
                     guard let self else { return }
-                    // Resultados por nombre: se ocultan tras 8 s.
-                    if !self.nameResults.isEmpty,
-                       let until = self.nameResultsUntil, Date() >= until
-                    {
-                        self.nameResults = []
-                        self.nameResultsUntil = nil
-                        self.speaker.stop()
-                        self.scanState = .idle
-                        return
-                    }
                     guard self.lastSeenEAN != nil,
                           Date().timeIntervalSince(self.lastSeenAt) >= 1.5
                     else { return }
